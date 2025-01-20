@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "Cafeteria.apps.CafeteriaConfig",
-    "Admins.apps.AdminsConfig",
-    "Vendors.apps.VendorsConfig",
-    "Users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [

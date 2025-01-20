@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path("", include("Cafeteria.urls")),
+    path("user/", include("User.urls")),
 ]

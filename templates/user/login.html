@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container flex-grow-1 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-circle fa-3x text-primary mb-3"></i>
+                        <h2>Welcome Back</h2>
+                        <p class="text-muted">
+                            Log in to your account to place and track orders
+                        </p>
+                    </div>
+                    <form>
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Enter your password">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a href="#" class="text-decoration-none"><i class="fas fa-key me-1"></i>Forgot
+                                    password?</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </button>
+                        <p class="text-center mb-0">
+                            <i class="fas fa-user-plus me-1"></i>
+                            Don't have an account? <a href="{% url 'user-signup' %}" class="text-decoration-none">Register here</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    <i class="fas fa-question-circle me-1"></i>
+                    Having trouble logging in? <a href="#" class="text-decoration-none">Contact support</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

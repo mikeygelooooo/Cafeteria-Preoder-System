@@ -52,18 +52,28 @@
                     <h5 class="card-title mb-0">Account Settings</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="post">
+                        {% csrf_token %}
                         <div class="mb-4">
                             <label class="form-label">Current Password</label>
-                            <input type="password" class="form-control">
+                            {{ form.old_password }}
+                            {% if form.old_password.errors %}
+                                <div class="text-danger">{{ form.old_password.errors }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-4">
                             <label class="form-label">New Password</label>
-                            <input type="password" class="form-control">
+                            {{ form.new_password1 }}
+                            {% if form.new_password1.errors %}
+                                <div class="text-danger">{{ form.new_password1.errors }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control">
+                            {{ form.new_password2 }}
+                            {% if form.new_password2.errors %}
+                                <div class="text-danger">{{ form.new_password2.errors }}</div>
+                            {% endif %}
                         </div>
                         <button type="submit" class="btn btn-warning">
                             <i class="fas fa-key me-2"></i>Change Password
@@ -83,9 +93,9 @@
                     </div>
                     <div class="text-danger">
                         <h6>Danger Zone</h6>
-                        <button class="btn btn-outline-danger">
+                        <a href="{% url 'user-delete-account' %}" class="btn btn-outline-danger">
                             <i class="fas fa-trash-alt me-2"></i>Delete Account
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

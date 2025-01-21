@@ -57,24 +57,39 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" name="first_name" value="John">
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                <div class="text-danger">{{ form.first_name.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" name="last_name" value="Doe">
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                <div class="text-danger">{{ form.last_name.errors }}</div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" value="johndoe">
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="john.doe@example.com">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Contact Number</label>
-                            <input type="tel" class="form-control" name="contact_number" value="123-456-7890">
+                            {{ form.contact_number }}
+                            {% if form.contact_number.errors %}
+                            <div class="text-danger">{{ form.contact_number.errors }}</div>
+                            {% endif %}
                         </div>
                         <div class="col-lg-6">
                             <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">

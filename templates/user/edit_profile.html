@@ -40,41 +40,41 @@
                     <h5 class="card-title mb-0">Profile Details</h5>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" value="John" readonly>
+                    <form method="post" action="{% url 'user-edit-profile' %}">
+                        {% csrf_token %}
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="first_name" value="John">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" value="Doe">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" value="Doe" readonly>
+                        <div class="mb-4">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" value="johndoe">
                         </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Username</label>
-                        <input type="text" class="form-control" value="johndoe" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" value="john.doe@example.com" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Contact Number</label>
-                        <input type="tel" class="form-control" value="123-456-7890" readonly>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">
-                            <a href="{% url 'user-edit-profile' %}" class="btn btn-warning w-100">
-                                <i class="fas fa-pen-to-square me-2"></i>Edit Profile
-                            </a>
-                            <form action="{% url 'user-logout' %}" method="post" class=" w-100">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger w-100">
-                                    <i class="fas fa-right-from-bracket me-2"></i>Logout
+                        <div class="mb-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="john.doe@example.com">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" name="contact_number" value="123-456-7890">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">
+                                <button type="submit" class="btn btn-warning w-100">
+                                    <i class="fas fa-floppy-disk me-2"></i>Save Changes
                                 </button>
-                            </form>
+                                <a href="{% url 'user-profile' %}" class="btn btn-outline-dark w-100">
+                                    <i class="fas fa-xmark me-2"></i>Cancel
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

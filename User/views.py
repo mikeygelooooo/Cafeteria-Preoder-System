@@ -1,9 +1,37 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
 from .forms import LoginForm
 
 # Create your views here.
+@login_required(login_url="user-login")
+def profile(request):
+    return render(request, "user/profile.html")
+
+
+@login_required(login_url="user-login")
+def edit_profile(request):
+    return render(request, "user/edit_profile.html")
+
+
+@login_required(login_url="user-login")
+def order_history(request):
+    return render(request, "user/order_history.html")
+
+
+@login_required(login_url="user-login")
+def account_settings(request):
+    return render(request, "user/account_settings.html")
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect("index")
+    
+    return render(request, "user/signup.html")
+
+
 def login(request):
     if request.user.is_authenticated:
         return redirect("index")
@@ -39,9 +67,9 @@ def login(request):
     return render(request, "user/login.html", context)
 
 
-def signup(request):
-    return render(request, "user/signup.html")
+@login_required(login_url="user-login")
+def logout(request):
+    if request.method == "POST":
+        auth_logout(request)
 
-
-def profile(request):
-    return render(request, "user/profile.html")
+    return redirect("user-login")

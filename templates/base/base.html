@@ -17,7 +17,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Improved navbar with better spacing -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'index' %}">
                 <i class="fas fa-utensils me-2"></i>QuickBite
@@ -28,7 +28,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                            href="{% url 'index' %}">
                             <i class="fas fa-home me-1"></i> Home
                         </a>
                     </li>
@@ -42,16 +43,21 @@
                             <i class="fas fa-clock me-1"></i> Orders
                         </a>
                     </li>
+                    <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                        <a class="nav-link {% if 'profile/' in request.path %}active{% endif %}"
+                            href="{% url 'user-profile' %}">
+                            <i class="fas fa-user me-1"></i> Profile
+                        </a>
+                        {% else %}
+                        <a class="nav-link {% if request.resolver_match.url_name == 'user-login' %}active{% endif %}"
+                            href="{% url 'user-login' %}">
+                            <i class="fas fa-user me-1"></i> Login
+                        </a>
+                        {% endif %}
+                    </li>
                 </ul>
-                {% if request.user.is_authenticated %}
-                <a class="btn btn-outline-light py-2" href="{% url 'user-profile' %}">
-                    <i class="fas fa-user me-1"></i> Profile
-                </a>
-                {% else %}
-                <a class="btn btn-outline-light py-2" href="{% url 'user-login' %}">
-                    <i class="fas fa-user me-1"></i> Login
-                </a>
-                {% endif %}
+
             </div>
         </div>
     </nav>
@@ -74,11 +80,11 @@
     </main>
 
     <!-- Improved footer with better spacing and icons -->
-    <footer class="bg-dark text-light mt-auto p-5">
+    <footer class="bg-warning-subtle text-dark mt-auto p-5">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="fw-bold text-white mb-3">
+                    <h5 class="fw-bold text-primary mb-3">
                         <i class="fas fa-utensils me-2"></i>QuickBite
                     </h5>
                     <div class="mb-3">
@@ -94,47 +100,47 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6">
-                    <h5 class="fw-bold text-white mb-3">Quick Links</h5>
+                    <h5 class="fw-bold text-primary mb-3">Quick Links</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-chevron-right me-2"></i>Home
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-chevron-right me-2"></i>Food Stalls
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-chevron-right me-2"></i>Track Orders
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-white mb-3">Help & Support</h5>
+                    <h5 class="fw-bold text-primary mb-3">Help & Support</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-question-circle me-2"></i>How to Order
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-info-circle me-2"></i>FAQs
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" class="text-light text-decoration-none">
+                            <a href="#" class="text-dark text-decoration-none">
                                 <i class="fas fa-headset me-2"></i>Contact Support
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-white mb-3">Contact Info</h5>
+                    <h5 class="fw-bold text-primary mb-3">Contact Info</h5>
                     <ul class="list-unstyled">
                         <li class="mb-3">
                             <i class="fas fa-map-marker-alt me-2"></i>

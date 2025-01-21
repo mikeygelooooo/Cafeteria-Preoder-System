@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Left Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-user-circle fa-5x text-warning"></i>
+                    </div>
+                    <h5 class="card-title mb-1">John Doe</h5>
+                    <p class="text-muted small mb-3">@johndoe</p>
+                    <button class="btn btn-outline-warning btn-sm">
+                        <i class="fas fa-camera me-1"></i>Change Photo
+                    </button>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'user-profile' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user me-2"></i>Profile Details
+                    </a>
+                    <a href="{% url 'user-order-history' %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-receipt me-2"></i>Order History
+                    </a>
+                    <a href="{% url 'user-account-settings' %}" class="list-group-item list-group-item-action text-warning active">
+                        <i class="fas fa-cog me-2"></i>Account Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-warning-subtle py-3">
+                    <h5 class="card-title mb-0">Account Settings</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-4">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-key me-2"></i>Change Password
+                        </button>
+                    </form>
+                    <hr class="my-4">
+                    <div class="mb-4">
+                        <h6>Notification Preferences</h6>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" id="emailNotif" checked>
+                            <label class="form-check-label" for="emailNotif">Email Notifications</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" id="smsNotif" checked>
+                            <label class="form-check-label" for="smsNotif">SMS Notifications</label>
+                        </div>
+                    </div>
+                    <div class="text-danger">
+                        <h6>Danger Zone</h6>
+                        <button class="btn btn-outline-danger">
+                            <i class="fas fa-trash-alt me-2"></i>Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

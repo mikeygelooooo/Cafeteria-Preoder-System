@@ -9,7 +9,7 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                        <i class="fas fa-user-plus fa-3x text-warning mb-3"></i>
                         <h2>Create Account</h2>
                         <p class="text-muted">Sign up to start ordering from our cafeteria</p>
                     </div>
@@ -51,14 +51,14 @@
                             </div>
                         </div>
 
-                        <!-- <div class="mb-4">
+                        <div class="mb-4">
                             <label for="contactNo" class="form-label">Contact Number</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 <input type="tel" class="form-control" id="contactNo" placeholder="Enter contact number"
                                     required>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="mb-4">
                             <label for="password" class="form-label">Password</label>
@@ -83,18 +83,18 @@
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="terms" required>
                                 <label class="form-check-label" for="terms">
-                                    I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and
-                                    <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                    I agree to the <a href="#" class="text-warning text-decoration-none">Terms of Service</a> and
+                                    <a href="#" class="text-warning text-decoration-none">Privacy Policy</a>
                                 </label>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <button type="submit" class="btn btn-warning w-100 mb-3">
                             <i class="fas fa-user-plus me-2"></i>Create Account
                         </button>
                         <p class="text-center mb-0">
                             <i class="fas fa-sign-in-alt me-1"></i>
-                            Already have an account? <a href="{% url 'user-login' %}" class="text-decoration-none">Login here</a>
+                            Already have an account? <a href="{% url 'user-login' %}" class="text-warning text-decoration-none">Login here</a>
                         </p>
                     </form>
                 </div>

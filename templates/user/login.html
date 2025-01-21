@@ -3,6 +3,18 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container flex-grow-1 my-5">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
@@ -18,14 +30,18 @@
                     <form method="post">
                         {% csrf_token %}
                         <div class="mb-4">
-                            <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                            <label for="{{ form.username.id_for_label }}" class="form-label">
+                                {{ form.username.label }}
+                            </label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 {{ form.username }}
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+                            <label for="{{ form.password.id_for_label }}" class="form-label">
+                                {{ form.password.label }}
+                            </label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 {{ form.password }}
@@ -49,7 +65,8 @@
                         </button>
                         <p class="text-center mb-0">
                             <i class="fas fa-user-plus me-1"></i>
-                            Don't have an account? <a href="{% url 'user-signup' %}" class="text-warning text-decoration-none">Register here</a>
+                            Don't have an account? <a href="{% url 'user-signup' %}"
+                                class="text-warning text-decoration-none">Register here</a>
                         </p>
                     </form>
                 </div>

@@ -3,6 +3,18 @@
 {% block title %}Signup{% endblock %}
 
 {% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container flex-grow-1 my-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -13,88 +25,128 @@
                         <h2>Create Account</h2>
                         <p class="text-muted">Sign up to start ordering from our cafeteria</p>
                     </div>
-                    <form>
+
+                    {% if messages %}
+                    <div class="messages mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="firstName" class="form-label">First Name</label>
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control" id="firstName"
-                                        placeholder="Enter first name" required>
+                                    {{ form.first_name }}
                                 </div>
+                                {% if form.first_name.errors %}
+                                <div class="text-danger small">{{ form.first_name.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="lastName" class="form-label">Last Name</label>
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name"
-                                        required>
+                                    {{ form.last_name }}
                                 </div>
+                                {% if form.last_name.errors %}
+                                <div class="text-danger small">{{ form.last_name.errors }}</div>
+                                {% endif %}
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                                <input type="text" class="form-control" id="username" placeholder="Choose a username"
-                                    required>
+                                {{ form.username }}
                             </div>
+                            {% if form.username.errors %}
+                            <div class="text-danger small">{{ form.username.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email"
-                                    required>
+                                {{ form.email }}
                             </div>
+                            {% if form.email.errors %}
+                            <div class="text-danger small">{{ form.email.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="contactNo" class="form-label">Contact Number</label>
+                            <label for="{{ form.contact_number.id_for_label }}" class="form-label">Contact
+                                Number</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                <input type="tel" class="form-control" id="contactNo" placeholder="Enter contact number"
-                                    required>
+                                {{ form.contact_number }}
                             </div>
+                            {% if form.contact_number.errors %}
+                            <div class="text-danger small">{{ form.contact_number.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="password"
-                                    placeholder="Create a password" required>
+                                {{ form.password1 }}
                             </div>
-                            <div class="form-text">Password must be at least 8 characters long</div>
+                            {% if form.password1.help_text %}
+                            <div class="form-text">{{ form.password1.help_text }}</div>
+                            {% endif %}
+                            {% if form.password1.errors %}
+                            <div class="text-danger small">{{ form.password1.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="confirmPassword"
-                                    placeholder="Confirm your password" required>
+                                {{ form.password2 }}
                             </div>
+                            {% if form.password2.errors %}
+                            <div class="text-danger small">{{ form.password2.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="mb-4">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="terms" required>
-                                <label class="form-check-label" for="terms">
-                                    I agree to the <a href="#" class="text-warning text-decoration-none">Terms of Service</a> and
+                                {{ form.terms }}
+                                <label class="form-check-label" for="{{ form.terms.id_for_label }}">
+                                    I agree to the <a href="#" class="text-warning text-decoration-none">Terms of
+                                        Service</a> and
                                     <a href="#" class="text-warning text-decoration-none">Privacy Policy</a>
                                 </label>
                             </div>
+                            {% if form.terms.errors %}
+                            <div class="text-danger small">{{ form.terms.errors }}</div>
+                            {% endif %}
                         </div>
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
 
                         <button type="submit" class="btn btn-warning w-100 mb-3">
                             <i class="fas fa-user-plus me-2"></i>Create Account
                         </button>
                         <p class="text-center mb-0">
                             <i class="fas fa-sign-in-alt me-1"></i>
-                            Already have an account? <a href="{% url 'user-login' %}" class="text-warning text-decoration-none">Login here</a>
+                            Already have an account? <a href="{% url 'user-login' %}"
+                                class="text-warning text-decoration-none">Login here</a>
                         </p>
                     </form>
                 </div>

@@ -2,12 +2,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 # Create your views here.
 @login_required(login_url="user-login")
 def profile(request):
-    return render(request, "user/profile.html")
+    user = request.user
+
+    profile = user.profile
+
+    context = {
+        'profile': profile,
+    }
+
+    return render(request, "user/profile.html", context)
 
 
 @login_required(login_url="user-login")
@@ -29,7 +37,23 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect("index")
     
-    return render(request, "user/signup.html")
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+
+            auth_login(request, user)
+
+            messages.success(request, 'Account created successfully!')
+
+            return redirect('index')
+    else:
+        form = SignupForm()
+
+    context = {'form': form}
+    
+    return render(request, "user/signup.html", context)
 
 
 def login(request):

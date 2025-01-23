@@ -11,17 +11,20 @@ from .forms import (
     LoginForm,
     SignupForm,
     EditProfileForm,
+    ChangePhotoForm,
     ChangePasswordForm,
     DeleteAccountForm,
 )
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image
+from io import BytesIO
+import sys
 
 
 # Create your views here.
 @login_required(login_url="user-login")
 def profile(request):
-    user = request.user
-
-    profile = user.profile
+    profile = request.user.profile
 
     context = {
         "profile": profile,
@@ -32,6 +35,8 @@ def profile(request):
 
 @login_required(login_url="user-login")
 def edit_profile(request):
+    profile = request.user.profile
+
     if request.method == "POST":
         form = EditProfileForm(request.POST, instance=request.user.profile)
 
@@ -46,19 +51,96 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user.profile)
 
     context = {
+        "profile": profile,
         "form": form,
     }
 
     return render(request, "user/edit_profile.html", context)
 
 
+def crop_photo(image):
+    image = image.convert("RGB")
+
+    # Get dimensions
+    width, height = image.size
+    crop_size = min(width, height)
+
+    # Center crop
+    left = (width - crop_size) // 2
+    top = (height - crop_size) // 2
+    right = left + crop_size
+    bottom = top + crop_size
+
+    image = image.crop((left, top, right, bottom))
+    image = image.resize((300, 300), Image.Resampling.LANCZOS)
+
+    return image
+
+
+@login_required(login_url="user-login")
+def change_photo(request):
+    user_profile = request.user.profile
+
+    if request.method == "POST":
+        form = ChangePhotoForm(request.POST, request.FILES, instance=user_profile)
+
+        if form.is_valid():
+            try:
+                # Open and process the uploaded image
+                upload = request.FILES["profile_photo"]
+                photo = Image.open(upload)
+                processed_photo = crop_photo(photo)
+
+                # Save processed image to in-memory file
+                buffer = BytesIO()
+                processed_photo.save(buffer, format="JPEG", quality=90)
+                buffer.seek(0)
+
+                # Create InMemoryUploadedFile
+                processed_file = InMemoryUploadedFile(
+                    buffer,
+                    "ImageField",
+                    f"{upload.name.split('.')[0]}.jpg",
+                    "image/jpeg",
+                    buffer.getbuffer().nbytes,
+                    None,
+                )
+
+                user_profile.profile_photo = processed_file
+                user_profile.save()
+
+                messages.success(request, "Profile photo updated successfully.")
+            except Exception as e:
+                messages.error(request, f"Error processing image: {str(e)}")
+        else:
+            messages.error(request, "Invalid form submission")
+
+        return redirect("user-profile")
+    else:
+        form = ChangePhotoForm(instance=user_profile)
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "user/change_photo.html", context)
+
+
 @login_required(login_url="user-login")
 def order_history(request):
-    return render(request, "user/order_history.html")
+    profile = request.user.profile
+
+    context = {
+        "profile": profile,
+    }
+
+    return render(request, "user/order_history.html", context)
 
 
 @login_required(login_url="user-login")
 def account_settings(request):
+    profile = request.user.profile
+
     if request.method == "POST":
         form = ChangePasswordForm(request.user, request.POST)
 
@@ -75,6 +157,7 @@ def account_settings(request):
         form = ChangePasswordForm(request.user)
 
     context = {
+        "profile": profile,
         "form": form,
     }
 

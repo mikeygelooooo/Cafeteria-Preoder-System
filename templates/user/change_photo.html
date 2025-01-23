@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %}
-
-{% block title %}Delete Account{% endblock %}
+{% block title %}Change Profile Photo{% endblock %}
 
 {% block content %}
 {% if messages %}
@@ -14,32 +13,33 @@
     {% endfor %}
 </div>
 {% endif %}
+
 <div class="container d-flex justify-content-center my-5">
     <div class="col-lg-9">
         <div class="card border-0 shadow-sm">
-            <div class="card-header bg-danger-subtle py-3">
-                <h5 class="card-title mb-0">Delete Account</h5>
+            <div class="card-header bg-warning-subtle py-3">
+                <h5 class="card-title mb-0">Change Profile Photo</h5>
             </div>
             <div class="card-body">
-                <div class="alert alert-warning">
-                    <strong>Warning:</strong> This action cannot be undone. All your data will be permanently deleted.
-                </div>
-
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="my-5">
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                        {% if form.password.errors %}
-                        <div class="text-danger">{{ form.password.errors }}</div>
+                    <div class="mb-3">
+                        {{ form.profile_photo.label_tag }}
+                        {{ form.profile_photo }}
+                        {% if form.profile_photo.errors %}
+                        <div class="text-danger">
+                            {% for error in form.profile_photo.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
                         {% endif %}
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">
-                            <button type="submit" class="btn btn-danger w-100">
-                                <i class="fas fa-eraser me-2"></i>Delete Account
+                            <button type="submit" class="btn btn-warning w-100">
+                                <i class="fas fa-camera me-2"></i>Save Photo
                             </button>
-                            <a href="{% url 'user-account-settings' %}" class="btn btn-outline-dark w-100">
+                            <a href="{% url 'user-profile' %}" class="btn btn-outline-dark w-100">
                                 <i class="fas fa-xmark me-2"></i>Cancel
                             </a>
                         </div>

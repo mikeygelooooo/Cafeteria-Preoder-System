@@ -82,6 +82,19 @@ class EditProfileForm(forms.ModelForm):
         return user
 
 
+class ChangePhotoForm(forms.ModelForm):
+    profile_photo = forms.ImageField(
+        label="Profile Photo",
+        help_text="Upload a new profile photo",
+        required=True,
+        widget=forms.FileInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = User
+        fields = ["profile_photo"]
+
+
 class ChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
         required=True,
@@ -171,10 +184,13 @@ class SignupForm(UserCreationForm):
             attrs={"class": "form-control", "placeholder": "Confirm your password"}
         ),
     )
+    terms = forms.BooleanField(
+        required=True, widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )
 
     class Meta:
         model = DjangoUser
-        fields = ["username", "password1", "password2"]
+        fields = ["username", "password1", "password2", "terms"]
 
     def clean_email(self):
         email = self.cleaned_data.get("email")

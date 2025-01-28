@@ -24,6 +24,7 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("", include("Cafeteria.urls")),
     path("user/", include("User.urls")),
+    path("vendor/", include("Vendor.urls")),
 ]
 
 if settings.DEBUG:

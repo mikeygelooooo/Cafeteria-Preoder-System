@@ -1,0 +1,84 @@
+{% extends 'base/vendor_base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container flex-grow-1 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-circle fa-3x text-info mb-3"></i>
+                        <h2>Welcome Back</h2>
+                        <p class="text-muted">
+                            Log in to your vendor account to manage and track orders
+                        </p>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">
+                                {{ form.username.label }}
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="{{ form.password.id_for_label }}" class="form-label">
+                                {{ form.password.label }}
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <div class="form-check">
+                                    {{ form.remember_me }}
+                                    <label class="form-check-label" for="remember">{{ form.remember_me.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a href="#" class="text-info text-decoration-none">
+                                    <i class="fas fa-key me-1"></i>Forgot password?
+                                </a>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info w-100 mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </button>
+                        <p class="text-muted text-center mb-0">
+                            <i class="fas fa-question-circle me-1"></i>
+                            Having trouble logging in? <a href="#" class="text-info text-decoration-none">Contact support</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    <a href="{% url 'index' %}" class="text-info text-decoration-none">
+                        <i class="fas fa-arrow-left me-1"></i>
+                        Return to Homepage
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -36,6 +36,26 @@ def dashboard(request):
     return render(request, "vendor/dashboard.html")
 
 
+@vendor_only(login_url="vendor-login")
+def order_management(request):
+    return render(request, "vendor/order_management.html")
+
+
+@vendor_only(login_url="vendor-login")
+def menu_management(request):
+    return render(request, "vendor/menu_management.html")
+
+
+@vendor_only(login_url="vendor-login")
+def sales_tracking(request):
+    return render(request, "vendor/sales_tracking.html")
+
+
+@vendor_only(login_url="vendor-login")
+def stall_settings(request):
+    return render(request, "vendor/stall_settings.html")
+
+
 def login(request):
     if request.user.is_authenticated and request.user.is_staff:
         return redirect("vendor-dashboard")

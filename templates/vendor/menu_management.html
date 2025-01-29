@@ -1,0 +1,24 @@
+{% extends 'base/vendor_base.html' %}
+
+{% load static %}
+
+{% block title %}Menu Management{% endblock %}
+
+{% block content %}
+<!-- Hero Section with improved layout -->
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container my-5">
+    <h1>Vendor Menu Management</h1>
+</div>
+{% endblock %}

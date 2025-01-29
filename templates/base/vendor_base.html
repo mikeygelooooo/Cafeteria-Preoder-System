@@ -24,7 +24,7 @@
         <div class="container-fluid px-5 py-0">
             <button class="btn btn-rounded btn-outline-light border-2" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasVendor">
-                <i class="fa-solid fa-bars fs-4"></i>
+                <i class="fa-solid fa-bars fs-4 mb-0"></i>
             </button>
             <div class="navbar-nav ms-auto">
                 <div class="dropdown">
@@ -71,15 +71,30 @@
 
         <div class="px-3">
             <div class="list-group">
-                <a href="#"
+                <a href="{% url 'vendor-dashboard' %}"
                     class="list-group-item list-group-item-action py-3 rounded-3 mb-2 d-flex align-items-center">
-                    <i class="fa-solid fa-display fa-fw me-3"></i>
-                    <span class="fw-semibold">List 1</span>
+                    <i class="fa-solid fa-table-columns fa-fw me-3"></i>
+                    <span class="fw-semibold">Dashboard</span>
                 </a>
-                <a href="#"
+                <a href="{% url 'vendor-orders' %}"
                     class="list-group-item list-group-item-action py-3 rounded-3 mb-2 d-flex align-items-center">
-                    <i class="fa-solid fa-display fa-fw me-3"></i>
-                    <span class="fw-semibold">List 1</span>
+                    <i class="fa-solid fa-money-bill-wheat fa-fw me-3"></i>
+                    <span class="fw-semibold">Order Management</span>
+                </a>
+                <a href="{% url 'vendor-menu' %}"
+                    class="list-group-item list-group-item-action py-3 rounded-3 mb-2 d-flex align-items-center">
+                    <i class="fa-solid fa-utensils fa-fw me-3"></i>
+                    <span class="fw-semibold">Menu Management</span>
+                </a>
+                <a href="{% url 'vendor-sales' %}"
+                    class="list-group-item list-group-item-action py-3 rounded-3 mb-2 d-flex align-items-center">
+                    <i class="fa-solid fa-chart-line fa-fw me-3"></i>
+                    <span class="fw-semibold">Sales Tracking</span>
+                </a>
+                <a href="{% url 'vendor-stall' %}"
+                    class="list-group-item list-group-item-action py-3 rounded-3 mb-2 d-flex align-items-center">
+                    <i class="fa-solid fa-store fa-fw me-3"></i>
+                    <span class="fw-semibold">Stall Settings</span>
                 </a>
             </div>
         </div>
